@@ -19,17 +19,25 @@ const app = express();
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
 // MONGODB CONNECTION
-mongoose.connect(MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+app.get("/dbon", (req, res) => {
+    mongoose.connect(MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    });
+    res.send("db connection : OPEN");
+});
 // END-OF MONGODB CONNECTION
+
+// MONGODB DISCONNECTION
+app.get("/dboff", (req, res) => {
+    mongoose.connection.close();
+    res.send("db connection : CLOSED");
+});
+// END-OF MONGODB DISCONNECTION
 
 app.get("/hello", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-    //res.send("Hello, World!");
-
-    res.send("db connection closed");
-    // MONGODB DISCONNECTION
-    mongoose.connection.close();
-    // END-OF MONGODB DISCONNECTION
+    res.send("Hello, World!");
 });
 
 app.listen(APP_PORT, () =>
