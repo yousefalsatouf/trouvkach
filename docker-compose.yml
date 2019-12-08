@@ -6,11 +6,11 @@
       environment:
         NODE_ENV: "development"
         APP_PORT: 12345
-        MONGO_URI: mongodb+srv://dev:dev@cluster0-nvddo.mongodb.net/trouvkach
       volumes:
         - "./package.json:/src/app/package.json"
         - "./node_modules:/src/app/node_modules"
         - "./bin:/src/app/bin"
+        - "./.env:/src/app/.env"
       expose:
         - "12345"
         - "9229"
