@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
-const ObjectId = mongoose.Schema.Types.ObjectId;
+//const ObjectId = mongoose.Schema.Types.ObjectId;
+mongoose.set("debug", true); // enable logging collection methods + arguments to the console
 
 const terminalSchema = new mongoose.Schema(
     {
-        bank: ObjectId,
+        bank: String,
         latitude: {type: Number, required: true},
         longitude: {type: Number, required: true},
         address: String,

@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+mongoose.set("debug", true); // enable logging collection methods + arguments to the console
 
 const bankSchema = new mongoose.Schema(
     {
