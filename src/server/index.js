@@ -8,7 +8,10 @@
 import express from "express";
 import path from "path";
 
-const {APP_PORT} = process.env;
+let {APP_PORT} = process.env;
+if (APP_PORT === null || APP_PORT === "") {
+    APP_PORT = process.env.PORT;
+}
 const app = express();
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
