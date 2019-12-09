@@ -1,1 +1,1 @@
-web: node esm ./src/server/index.mjs
+web: node -r esm ./src/server/index.mjs
