@@ -1,1 +1,1 @@
-web: node --experimental-modules ./src/server/index.mjs
+web: node esm ./src/server/index.mjs
