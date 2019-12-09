@@ -17,7 +17,6 @@
     "start": "node src/server/index.js",
     "heroku-postbuild": "webpack -p"
   },
-  "type": "module",
   "lint-staged": {
     "*.js": [
       "npx eslint --fix --cache",
@@ -51,6 +50,7 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "mongo-tools": "^1.0.0",
     "mongodb": "^3.3.5",
