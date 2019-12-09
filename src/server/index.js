@@ -8,10 +8,11 @@
 import express from "express";
 import path from "path";
 
-let {APP_PORT} = process.env;
-if (APP_PORT === null || APP_PORT === "") {
-    APP_PORT = process.env.PORT;
-}
+require("dotenv").config();
+
+const {APP_PORT, PORT} = process.env;
+const port = APP_PORT || PORT;
+
 const app = express();
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
@@ -37,4 +38,13 @@ app.get("/hello", (req, res) => {
     return `ℹ️  (${req.method.toUpperCase()}) ${req.url}`;
 });
 
-app.listen(APP_PORT, () => `\u2665 Server is listening on port ${APP_PORT}.`);
+//Heroku
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("../../bin/client/"));
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "../../bin/client"));
+    });
+}
+
+app.listen(port, () => `\u2665 Server is listening on port ${port}.`);
