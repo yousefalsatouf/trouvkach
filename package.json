@@ -17,6 +17,7 @@
     "start": "node src/server/index.js",
     "heroku-postbuild": "webpack -p"
   },
+  "type": "module",
   "lint-staged": {
     "*.js": [
       "npx eslint --fix --cache",
