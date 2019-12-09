@@ -13,7 +13,9 @@
     "work:server": "npx babel src/server -s --watch --verbose --out-dir bin/server",
     "build:client": "npx webpack --progress --profile --colors",
     "work:client": "npx webpack --env=dev --progress",
-    "build": "npm run build:server && npm run build:client"
+    "build": "npm run build:server && npm run build:client",
+    "start": "node src/server/index.js",
+    "type": "module"
   },
   "lint-staged": {
     "*.js": [
@@ -47,8 +49,10 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
+    "mongoose": "^5.7.14",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
