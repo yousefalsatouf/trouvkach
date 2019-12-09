@@ -38,13 +38,13 @@ app.get("/hello", (req, res) => {
     return `ℹ️  (${req.method.toUpperCase()}) ${req.url}`;
 });
 
-//Heroku
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("../../bin/client/"));
-
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "../../bin/client"));
-    });
-}
+// //Heroku
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static("../../bin/client/"));
+//
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.resolve(__dirname, "../../bin/client"));
+//     });
+// }
 
 app.listen(port, () => `\u2665 Server is listening on port ${port}.`);
