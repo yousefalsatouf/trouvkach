@@ -1,0 +1,11 @@
+body {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+/* Component Map */
+.map {
+    float: right;
+    height: 80vh;
+    width: 60%;
+}
