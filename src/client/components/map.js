@@ -3,13 +3,13 @@ import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
 class Carte extends React.Component {
     state = {
-      height : 100,
-        lat: 51.505,
-        lng: -0.09,
+        lat:  50.6412,
+        lng: 5.5718,
         zoom: 13,
       }
     render() {
         const position = [this.state.lat, this.state.lng];
+        navigator.geolocation.getCurrentPosition();
         return(
             <Map className="map" center={position} zoom={this.state.zoom}>
             <TileLayer

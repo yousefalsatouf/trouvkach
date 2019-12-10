@@ -3,6 +3,10 @@ body {
     max-width: 100%;
 }
 
+
+/* Component Map */
 .map {
-    height: 300px;
+    float: right;
+    height: 80vh;
+    width: 60%;
 }
