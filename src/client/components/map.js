@@ -2,12 +2,39 @@ import React from "react";
 import {Map, TileLayer, Marker, Popup} from "react-leaflet";
 import L from "leaflet";
 
+export const userIcon = new L.Icon({
+    iconUrl: require("../assets/location-arrow.svg"),
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [25, 55],
+});
+export const banksIcon = new L.Icon({
+    iconUrl: require("../assets/bank.svg"),
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [25, 55],
+});
+export const atmIcon = new L.Icon({
+    iconUrl: require("../assets/atm.svg"),
+    iconAnchor: [5, 55],
+    popupAnchor: [10, -44],
+    iconSize: [25, 55],
+});
+
 class Carte extends React.Component {
     state = {
-        lat: 50.6412,
-        lng: 5.5718,
-        zoom: 13,
+        lat: null,
+        lng: null,
+        zoom: 11,
     };
+    componentDidMount() {
+        window.navigator.geolocation.getCurrentPosition(success =>
+            this.setState({
+                lat: success.coords.latitude,
+                lng: success.coords.longitude,
+            }),
+        );
+    }
     render() {
         const position = [this.state.lat, this.state.lng];
         return (

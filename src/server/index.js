@@ -87,12 +87,6 @@ app.get("/bank", (req, res) => {
     });
 }); // END-OF SHOW BANK NAME
 
-app.get("/hello", (req, res) => {
-    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-    //res.send("Hello, World!");
-    res.send(process.env.TEST);
-});
-
 app.get("/map", (req, res) => {
     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
     //res.send("Hello, World!");

@@ -62,6 +62,11 @@ module.exports = env => {
         module: {
             rules: [
                 {
+                    test: /\.svg$/,
+                    loader: "svg-inline-loader",
+                },
+
+                {
                     test: /\.css$/,
                     use: ["style-loader", "css-loader"],
                 },
