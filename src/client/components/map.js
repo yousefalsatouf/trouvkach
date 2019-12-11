@@ -23,8 +23,8 @@ export const atmIcon = new L.Icon({
 
 class Carte extends React.Component {
     state = {
-        lat: null,
-        lng: null,
+        lat: 1,
+        lng: 1,
         zoom: 11,
     };
     componentDidMount() {
