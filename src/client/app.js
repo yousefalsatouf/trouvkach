@@ -10,5 +10,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import HelloWorld from "./components/hello";
+import Data from "./components/Data";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("#app"));
+ReactDOM.render(<Data />, document.querySelector("#app"));
