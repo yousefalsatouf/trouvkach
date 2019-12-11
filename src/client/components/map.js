@@ -1,5 +1,6 @@
 import React from "react";
 import {Map, TileLayer, Marker, Popup} from "react-leaflet";
+import L from "leaflet";
 
 class Carte extends React.Component {
     state = {
@@ -10,10 +11,10 @@ class Carte extends React.Component {
     render() {
         const position = [this.state.lat, this.state.lng];
         return (
-            <Map className="map" center={position} zoom={this.state.zoom}>
+            <Map className={"map"} center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                    url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
                 />
                 <Marker position={position}>
                     <Popup>
