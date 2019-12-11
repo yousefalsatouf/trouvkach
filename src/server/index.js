@@ -27,7 +27,7 @@ const terminalSchema = new Schema({}, {collection: "terminals"});
 const Bank = mongoose.model("Bank", bankSchema);
 const Terminal = mongoose.model("Terminal", terminalSchema);
 
-const url = process.env.MONGODB_URI;
+const url = process.env.MONGO_URI;
 
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
