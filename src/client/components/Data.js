@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from "react";
-import axios from 'axios'
+import axios from "axios";
 
 class Data extends Component {
     constructor() {
@@ -19,19 +19,20 @@ class Data extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:81/index.js')
+        axios
+            .get("http://localhost:81/index.js")
             .then(res => {
-                this.setState({ banks: res.data });
+                this.setState({banks: res.data});
             })
-            .catch(function (error) {
+            .catch(error => {
                 console.log(error);
-            })
+            });
     }
 
     dataTable() {
-        return this.state.banks.map((bank, i) => {
-            return <DataTable obj={bank} key={i} />;
-        });
+        return this.state.banks.map((bank, i) => (
+            <DataTable obj={bank} key={i} />
+        ));
     }
 
     render() {

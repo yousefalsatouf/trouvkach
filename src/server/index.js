@@ -17,8 +17,8 @@ const app = express();
 const mongoose = require("mongoose");
 const {APP_PORT, PORT} = process.env;
 const port = APP_PORT || PORT;
-const cors = require('cors');
-const bodyParser = require('body-parser');
+const cors = require("cors");
+const bodyParser = require("body-parser");
 
 mongoose.set("debug", true); // enable logging collection methods + arguments to the console
 
@@ -35,19 +35,18 @@ const url = process.env.MONGO_URI;
 
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cors())
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
+app.use(bodyParser.json());
 
-router.route('/reactApp').get((req, res) => {
+router.route("/reactApp").get((req, res) => {
     Bank.find((error, banks) => {
         if (error) {
-            return next(error)
-        } else {
-            res.json(banks);
+            return next(error);
         }
-    })
-})
+        res.json(banks);
+    });
+});
 
 app.get("/banks", (req, res) => {
     console.log(`ℹ️ (${req.method.toUpperCase()}) ${req.url}`);
