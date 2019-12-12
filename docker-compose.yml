@@ -15,7 +15,7 @@ services:
             - "12345"
             - "9229"
         ports:
-            - "81:12345"
+            - "80:12345"
             - "9229"
         command: "nodemon --inspect=0.0.0.0:9229 --watch bin/server bin/server/index.js"
     mongo:

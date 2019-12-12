@@ -13,7 +13,7 @@ import path from "path";
 
 const app = express();
 const mongoose = require("mongoose");
-const {APP_PORT, PORT} = process.env;
+const { APP_PORT, PORT } = process.env;
 const port = APP_PORT || PORT;
 
 mongoose.set("debug", true); // enable logging collection methods + arguments to the console
@@ -21,8 +21,8 @@ mongoose.set("debug", true); // enable logging collection methods + arguments to
 // SCHEMA and MODELS
 const Schema = mongoose.Schema;
 //COLLECTION : banks
-const bankSchema = new Schema({}, {collection: "banks"});
-const terminalSchema = new Schema({}, {collection: "terminals"});
+const bankSchema = new Schema({}, { collection: "banks" });
+const terminalSchema = new Schema({}, { collection: "terminals" });
 
 const Bank = mongoose.model("Bank", bankSchema);
 const Terminal = mongoose.model("Terminal", terminalSchema);
