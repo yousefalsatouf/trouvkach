@@ -13,9 +13,4 @@ import {BrowserRouter} from "react-router-dom";
 import HelloWorld from "./components/hello";
 import Data from "./components/Data";
 
-ReactDOM.render(
-    <BrowserRouter>
-        <Data />
-    </BrowserRouter>,
-    document.querySelector("#app"),
-);
+ReactDOM.render(<Data />, document.querySelector("#app"));
