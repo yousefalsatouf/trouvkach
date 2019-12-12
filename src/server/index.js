@@ -29,7 +29,7 @@ const Terminal = mongoose.model("Terminal", terminalSchema);
 
 const url = process.env.MONGO_URI;
 
-app.use(express.static(path.resolve(__dirname, "../../bin/client")));
+app.use(express.static(path.resolve(__dirname, "../..map/bin/client")));
 
 app.get("/banks", (req, res) => {
     console.log(`ℹ️ (${req.method.toUpperCase()}) ${req.url}`);
@@ -44,11 +44,11 @@ app.get("/banks", (req, res) => {
         if (err) {
             return console.log(err);
         }
-        res.json({data: banks});
+        res.json(banks);
     });
 });
 
-app.get("/terminals", (req, res) => {
+app.get("/*", (req, res) => {
     console.log(`ℹ️ (${req.method.toUpperCase()}) ${req.url}`);
 
     mongoose.connect(url, {
@@ -61,7 +61,7 @@ app.get("/terminals", (req, res) => {
         if (err) {
             return console.log(err);
         }
-        res.json({data: terminals});
+        res.json(terminals);
     });
 });
 
