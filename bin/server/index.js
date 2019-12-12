@@ -28,9 +28,7 @@ app.get("/banks", (req, res) => {
       const db = client.db("trouvkash");
       const Banks = db.collection("banks");
       Banks.find({}).toArray((e, banks) => {
-        res.send({
-          banks: banks
-        });
+        res.json(banks);
       });
     }
   });
@@ -45,8 +43,47 @@ app.get("/terminals", (req, res) => {
       const db = client.db("trouvkash");
       const Terminals = db.collection("terminals");
       Terminals.find({}).toArray((e, terminals) => {
-        res.send({
-          terminals: terminals
+        res.json(terminals);
+      });
+    }
+  });
+});
+app.get("/imbecile/:latitude/:longitude", (req, res) => {
+  MongoClient.connect(url, {
+    useUnifiedTopology: true
+  }, (e, client) => {
+    if (e === null) {
+      console.log("Terminals Connected");
+      const db = client.db("trouvkash");
+      const Terminals = db.collection("terminals");
+      Terminals.aggregate([{
+        $match: {
+          latitude: {
+            $gte: Number(req.params.latitude) - 0.1,
+            $lte: Number(req.params.latitude) + 0.1
+          },
+          longitude: {
+            $gte: Number(req.params.longitude) - 0.2,
+            $lte: Number(req.params.longitude) + 0.2
+          }
+        }
+      }, {
+        $lookup: {
+          from: "banks",
+          localField: "bank",
+          foreignField: "_id",
+          as: "bankDetails"
+        }
+      }]).toArray((e, terminals) => {
+        const result = [];
+        terminals.forEach((elem, index) => {
+          if (Object.getOwnPropertyNames(elem.bankDetails).length <= 1) {
+            elem.bankDetails = [{}];
+            elem.bankDetails[0].country = "N/A";
+          }
+
+          result.push(elem);
+          index === terminals.length - 1 && res.json(result);
         });
       });
     }
