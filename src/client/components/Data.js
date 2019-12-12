@@ -6,12 +6,11 @@
  * started at 06/09/2019
  */
 
-import React, { Component } from 'react';
+import React, {Component} from "react";
+import axios from 'axios'
 
-class  Data extends Component
-{
-    constructor()
-    {
+class Data extends Component {
+    constructor() {
         super();
         this.state({
             banks: [],
@@ -20,28 +19,31 @@ class  Data extends Component
     }
 
     componentDidMount() {
-        fetch("/banks")
+        axios.get('http://localhost:81/index.js')
             .then(res => {
-                console.log(res);
-                return res.json();
+                this.setState({ banks: res.data });
             })
-            .then(banks => {
-                console.log(banks);
-                this.setState({ banks })
-            });
+            .catch(function (error) {
+                console.log(error);
+            })
+    }
+
+    dataTable() {
+        return this.state.banks.map((bank, i) => {
+            return <DataTable obj={bank} key={i} />;
+        });
     }
 
     render() {
         return (
-            <div className="App">
+            <div className={"App"}>
                 <h1>Banks</h1>
-                {this.state.banks.map(bank =>
+                {this.state.banks.map(bank => (
                     <div key={bank.id}>bank: {bank.name}</div>
-                )}
+                ))}
             </div>
         );
     }
 }
 
 export default Data;
-

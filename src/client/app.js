@@ -8,8 +8,13 @@
 
 import * as React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter } from "react-router-dom";
 
 import HelloWorld from "./components/hello";
 import Data from "./components/Data";
 
-ReactDOM.render(<Data />, document.querySelector("#app"));
+ReactDOM.render(
+    <BrowserRouter>
+        <Data />
+    </BrowserRouter>
+    , document.querySelector("#app"));
