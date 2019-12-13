@@ -11,4 +11,4 @@ import ReactDOM from "react-dom";
 import Carte from './components/map';
 import '../style.css';
 
-ReactDOM.render(<Carte/>, document.querySelector('#container'));
+ReactDOM.render(<Carte/>, document.querySelector('#app'));

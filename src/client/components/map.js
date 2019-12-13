@@ -39,8 +39,14 @@ class Carte extends React.Component {
     render() {
         const position = [this.state.lat, this.state.lng];
         return (
-          <div>
+          <div id='container'>
+
+            <div id="list">
           <PersonList/>
+
+          </div>
+
+          <div id="map">
             <Map className={"map"} center={position} zoom={this.state.zoom}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -52,6 +58,8 @@ class Carte extends React.Component {
                     </Popup>
                 </Marker>
             </Map>
+
+            </div>
             </div>
         );
     }

@@ -2,12 +2,37 @@
 body {
     max-height: 100%;
     max-width: 100%;
-    background-color: aqua;
+    background-color: #fcfcfc;
+    margin: 0;
+    padding: 0;
 }
 
-/* Component Map */
+#container {
+    display: flex;
+}
 .map {
-    float: right;
     height: 80vh;
+    width: 100%;
+}
+
+#list {
+    width: 40%;
+}
+
+#map {
     width: 60%;
+}
+
+header {
+    display:flex;
+    margin: 0;
+    background-color: #036;
+    color: white;
+    height: 4em;
+    align-items: center;
+    justify-content: center;
+}
+
+ul {
+    margin: 0;
 }

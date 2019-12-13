@@ -18,23 +18,7 @@ const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 const url = process.env.MONGO_URI;
 app.use(_express.default.static(_path.default.resolve(__dirname, "../../bin/client")));
-app.get("/banks", (req, res) => {
-  console.log(`ℹ️ (${req.method.toUpperCase()}) ${req.url}`);
-  MongoClient.connect(url, {
-    useUnifiedTopology: true
-  }, (err, client) => {
-    if (err === null) {
-      console.log("Banks Connected");
-      const db = client.db("trouvkash");
-      const Banks = db.collection("banks");
-      Banks.find({}).toArray((e, banks) => {
-        res.json(banks);
-      });
-    }
-  });
-});
-app.get("/terminals", (req, res) => {
-  console.log(`ℹ️ (${req.method.toUpperCase()}) ${req.url}`);
+app.get("/test", (req, res) => {
   MongoClient.connect(url, {
     useUnifiedTopology: true
   }, (e, client) => {
@@ -42,29 +26,17 @@ app.get("/terminals", (req, res) => {
       console.log("Terminals Connected");
       const db = client.db("trouvkash");
       const Terminals = db.collection("terminals");
-      Terminals.find({}).toArray((e, terminals) => {
-        res.json(terminals);
-      });
-    }
-  });
-});
-app.get("/imbecile/:latitude/:longitude", (req, res) => {
-  MongoClient.connect(url, {
-    useUnifiedTopology: true
-  }, (e, client) => {
-    if (e === null) {
-      console.log("Terminals Connected");
-      const db = client.db("trouvkash");
-      const Terminals = db.collection("terminals");
+      const latUser = 50.633179;
+      const longUser = 5.587107;
       Terminals.aggregate([{
         $match: {
           latitude: {
-            $gte: Number(req.params.latitude) - 0.1,
-            $lte: Number(req.params.latitude) + 0.1
+            $gte: Number(latUser) - 0.01,
+            $lte: Number(latUser) + 0.01
           },
           longitude: {
-            $gte: Number(req.params.longitude) - 0.2,
-            $lte: Number(req.params.longitude) + 0.2
+            $gte: Number(longUser) - 0.02,
+            $lte: Number(longUser) + 0.02
           }
         }
       }, {
@@ -76,13 +48,80 @@ app.get("/imbecile/:latitude/:longitude", (req, res) => {
         }
       }]).toArray((e, terminals) => {
         const result = [];
+        const latitude = Number(latUser);
+        const ratioLat = Math.cos(latUser * Math.PI / 180) * 111;
+        const tenKmLat = 1 / ratioLat * 0.75;
+        const minLat = latitude - tenKmLat;
+        const maxLat = latitude + tenKmLat;
+        const longitude = Number(longUser);
+        const ratioLong = Math.cos(longUser * Math.PI / 180) * 85;
+        const tenKmLong = 1 / ratioLong * 1.5;
+        const minLong = longitude - tenKmLong;
+        const maxLong = longitude + tenKmLong;
         terminals.forEach((elem, index) => {
           if (Object.getOwnPropertyNames(elem.bankDetails).length <= 1) {
             elem.bankDetails = [{}];
             elem.bankDetails[0].country = "N/A";
           }
 
-          result.push(elem);
+          if (elem.latitude > minLat && elem.latitude < maxLat && elem.longitude > minLong && elem.longitude < maxLong) {
+            result.push(elem);
+          }
+
+          index === terminals.length - 1 && res.json(result);
+        });
+      });
+    }
+  });
+});
+app.get("/:latitude/:longitude", (req, res) => {
+  MongoClient.connect(url, {
+    useUnifiedTopology: true
+  }, (e, client) => {
+    if (e === null) {
+      console.log("Terminals Connected");
+      const db = client.db("trouvkash");
+      const Terminals = db.collection("terminals");
+      Terminals.aggregate([{
+        $match: {
+          latitude: {
+            $gte: Number(req.params.latitude) - 0.01,
+            $lte: Number(req.params.latitude) + 0.01
+          },
+          longitude: {
+            $gte: Number(req.params.longitude) - 0.02,
+            $lte: Number(req.params.longitude) + 0.02
+          }
+        }
+      }, {
+        $lookup: {
+          from: "banks",
+          localField: "bank",
+          foreignField: "_id",
+          as: "bankDetails"
+        }
+      }]).toArray((e, terminals) => {
+        const result = [];
+        const latitude = Number(req.params.latitude);
+        const ratioLat = Math.cos(req.params.latitude * Math.PI / 180) * 111;
+        const tenKmLat = 1 / ratioLat * 0.75;
+        const minLat = latitude - tenKmLat;
+        const maxLat = latitude + tenKmLat;
+        const longitude = Number(req.params.longitude);
+        const ratioLong = Math.cos(req.params.longitude * Math.PI / 180) * 85;
+        const tenKmLong = 1 / ratioLong * 1.5;
+        const minLong = longitude - tenKmLong;
+        const maxLong = longitude + tenKmLong;
+        terminals.forEach((elem, index) => {
+          if (Object.getOwnPropertyNames(elem.bankDetails).length <= 1) {
+            elem.bankDetails = [{}];
+            elem.bankDetails[0].country = "N/A";
+          }
+
+          if (elem.latitude > minLat && elem.latitude < maxLat && elem.longitude > minLong && elem.longitude < maxLong) {
+            result.push(elem);
+          }
+
           index === terminals.length - 1 && res.json(result);
         });
       });

@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { cpus } from 'os';
 
 export default class PersonList extends React.Component {
   state = {
@@ -8,7 +7,7 @@ export default class PersonList extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/terminals')
+    axios.get('/test')
       .then(res => {
         const terminals = res.data;
         this.setState({terminals});
@@ -18,7 +17,7 @@ export default class PersonList extends React.Component {
   render() {
     return (
       <ul>
-        { this.state.terminals.map(terminal => <li>{terminal.address}<br/>{terminal.latitude}<br/>{terminal.longitude}</li>)}
+        { this.state.terminals.map(terminal => <li><a href={terminal.bankDetails[0].url} target="_blank">{terminal.bankDetails[0].name}</a><br/>{terminal.address}</li>)}
       </ul>
     )
   }
