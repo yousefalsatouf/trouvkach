@@ -10,5 +10,6 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import Carte from './components/map';
 import '../style.css';
+import '../../node_modules/leaflet/dist/leaflet.css';
 
 ReactDOM.render(<Carte/>, document.querySelector('#app'));

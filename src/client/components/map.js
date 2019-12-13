@@ -2,6 +2,7 @@ import React from "react";
 import {Map, TileLayer, Marker, Popup} from "react-leaflet";
 import L from "leaflet";
 import PersonList from "./menu.js";
+import axios from 'axios';
 
 const userIcon = new L.Icon({
     iconUrl: require("../assets/location-arrow.svg"),
@@ -24,25 +25,35 @@ const atmIcon = new L.Icon({
 
 class Carte extends React.Component {
     state = {
-        lat: 1,
-        lng: 1,
-        zoom: 11,
+        lat: 50,
+        lng: 5,
+        zoom: 14,
+        terminals: [],
     };
-    componentDidMount() {
+    
+    render() {
+
         window.navigator.geolocation.getCurrentPosition(success =>
             this.setState({
                 lat: success.coords.latitude,
                 lng: success.coords.longitude,
             }),
         );
-    }
-    render() {
+
+        axios.get(`/${this.props.lat}/${this.props.long}`)
+        .then(res => {
+          const terminals = res.data;
+          this.setState({terminals});
+        })
+
         const position = [this.state.lat, this.state.lng];
+        console.log(this.state.lat);
+        
         return (
           <div id='container'>
 
             <div id="list">
-          <PersonList/>
+          <PersonList lat={this.state.lat} long={this.state.lng}/>
 
           </div>
 
@@ -54,9 +65,17 @@ class Carte extends React.Component {
                 />
                 <Marker position={position}>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        Your position
                     </Popup>
                 </Marker>
+                { this.state.terminals.map(terminal => <Marker position={[terminal.latitude, terminal.longitude]}>
+                    
+                    <Popup>
+                    <a href={terminal.bankDetails[0].url} target="_blank">{terminal.bankDetails[0].name}</a><br/>{terminal.address}
+                    </Popup>
+
+                </Marker>)}
+                    
             </Map>
 
             </div>
