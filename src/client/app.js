@@ -8,7 +8,7 @@
 
 import * as React from "react";
 import ReactDOM from "react-dom";
+import Carte from './components/map';
+import '../style.css';
 
-import Data from "./components/Data";
-
-ReactDOM.render(<Data />, document.querySelector("#app"));
+ReactDOM.render(<Carte />, document.querySelector('#container'));
