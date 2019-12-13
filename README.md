@@ -8,7 +8,7 @@
 - Repository : **`trouvkach`**
 - Deadline : **13/12/2019 5:00 pm**
 - Team : **John Dillinger** Nicolas B, Maxime C, Michaël, Yousef
-- Heroku (demo link) :
+- Heroku (demo link) : https://whispering-badlands-01746.herokuapp.com/
 
 
 ## Specifications
@@ -39,4 +39,4 @@ How to :
 -
 
 #### Mockups & Design
-!(mockup-trouvekach.png)
+![mockup](mockup-trouvekach.png)
