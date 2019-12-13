@@ -18,7 +18,7 @@ const mongodb = require("mongodb");
 const MongoClient = mongodb.MongoClient;
 const url = process.env.MONGO_URI;
 app.use(_express.default.static(_path.default.resolve(__dirname, "../../bin/client")));
-app.get("/test", (req, res) => {
+app.get("/terminals", (req, res) => {
   MongoClient.connect(url, {
     useUnifiedTopology: true
   }, (e, client) => {

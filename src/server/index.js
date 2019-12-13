@@ -6,14 +6,6 @@
  * started at 03/12/2019
  */
 
-/* becodeorg/trouvkach
-*
-* /src/server/index.js - Server entry point
-*
-* coded by yousef
-* started at 03/12/2019
-*/
-
 require("dotenv").config();
 
 import express from "express";
@@ -28,7 +20,7 @@ const url = process.env.MONGO_URI;
 
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
-app.get("/test", (req, res) => {
+app.get("/terminals", (req, res) => {
     MongoClient.connect(url, { useUnifiedTopology: true }, (e, client) => {
         if (e === null) {
             console.log("Terminals Connected");
