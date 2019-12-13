@@ -13,8 +13,10 @@
     "work:server": "npx babel src/server -s --watch --verbose --out-dir bin/server",
     "build:client": "npx webpack --progress --profile --colors",
     "work:client": "npx webpack --env=dev --progress",
-    "build": "npm run build:server && npm run build:client"
-  },
+    "build": "npm run build:server && npm run build:client",
+    "start": "node src/server/index.js",
+    "heroku-postbuild": "webpack -p"
+    },
   "lint-staged": {
     "*.js": [
       "npx eslint --fix --cache",
