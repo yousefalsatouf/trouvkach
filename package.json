@@ -41,7 +41,7 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-unicorn": "^10.0.0",
     "file-loader": "^4.2.0",
-    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
     "prettier": "^1.18.2",
@@ -60,7 +60,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-leaflet": "^2.6.0",
-    "svg-inline-loader": "^0.8.0"
+    "svg-inline-loader": "^0.8.2"
   },
   "husky": {
     "hooks": {
